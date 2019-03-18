@@ -1,0 +1,43 @@
+@import 'vars';
+
+html {
+  font-family: $global-font-family;
+  font-size: 16px;
+  text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  color: var(--text);
+  font-weight: 400;
+}
+
+svg {
+  fill: currentColor;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+a {
+  color: var(--text);
+  transition: color 75ms ease-in-out;
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    color: var(--blue);
+  }
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}

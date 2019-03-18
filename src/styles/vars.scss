@@ -1,0 +1,34 @@
+$body-padding: 32px;
+$global-font-family: 'Metropolis', 'Helvetica Neue', Arial, sans-serif;
+
+$colors: (
+  bg: #f2f5f7,
+  green: #67e8b4,
+  blue: #86A5DA,
+  purple: #A565ff,
+  text: #4a4d5a,
+  text-light: #757781,
+);
+
+$main-gradient: linear-gradient(
+  to right,
+  var(--green),
+  var(--purple),
+  var(--purple),
+  var(--green)
+);
+
+@function c($key) {
+  @return map-get($colors, $key);
+}
+
+:root {
+
+  // Register css vars
+	@each $name, $hex in $colors {
+    // Dart-sass error
+    --#{"" + $name}: #{$hex}
+  }
+}
+
+
