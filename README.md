@@ -1,5 +1,8 @@
 # miralize.com
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ee93c1d4-a6f1-4680-b089-17c4a488f94e/deploy-status)](https://app.netlify.com/sites/relaxed-edison-d64e22/deploys)
+
+
 ## Project setup
 ```
 yarn install

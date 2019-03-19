@@ -18,7 +18,6 @@ export default {
 
 <style lang="scss" src="@/styles/root.scss"></style>
 <style lang="scss" scoped>
-@import "@/styles/vars.scss";
 .app {
   display: grid;
   grid-gap: 16px;
