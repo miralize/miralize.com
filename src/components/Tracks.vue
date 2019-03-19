@@ -29,10 +29,10 @@ export default {
     const { data: { topalbums: { album } } } = await Axios.get('.netlify/functions/lastfm', {
       params: {
         method: 'user.gettopalbums',
-        period: '7day', // overall | 7day | 1month | 3month | 6month | 12month
+        period: '1month', // overall | 7day | 1month | 3month | 6month | 12month
       },
     });
-    this.tracks = album.slice(0, 10);
+    this.tracks = album.slice(0, 5);
   },
 };
 </script>
