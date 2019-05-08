@@ -15,7 +15,13 @@
         class="track-img"
       >
         <img
+          v-if="track.image[3]['#text']"
           :src="track.image[3]['#text']"
+          :alt="track.name"
+        >
+        <img
+          v-else
+          src="@/assets/default-album-cover.png"
           :alt="track.name"
         >
       </div>
@@ -73,12 +79,6 @@ export default {
     clickOut() {
       this.tz = 0;
     },
-    endHover() {
-      this.hovered = false;
-      this.imgBounds = null;
-      this.rx = 0;
-      this.ry = 0;
-    },
     calculateHover(e) {
       if (this.imgBounds) {
         const x = e.clientX - this.imgBounds.left;
@@ -93,6 +93,12 @@ export default {
         this.rx = dy / -7;
         this.ry = dx / 7;
       }
+    },
+    endHover() {
+      this.hovered = false;
+      this.imgBounds = null;
+      this.rx = 0;
+      this.ry = 0;
     },
   },
 };

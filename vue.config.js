@@ -19,9 +19,9 @@ module.exports = {
       '/.netlify/functions': {
         target: 'http://localhost:8125',
         pathRewrite: {
-          "^/\\.netlify/functions": "",
-        }
-      }
+          '^/\\.netlify/functions': '',
+        },
+      },
     },
   },
   pluginOptions: {
