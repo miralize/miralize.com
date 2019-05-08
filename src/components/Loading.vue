@@ -1,30 +1,16 @@
 <template>
   <div
-    :class="loadingClasses"
+    :class="{ 'loading-indicator--is-loading': loading }"
     class="loading-indicator"
   />
 </template>
 
 <script>
 export default {
-  data: () => ({
-    loading: false,
-  }),
-  computed: {
-    loadingClasses() {
-      return [
-        {
-          'loading-indicator--is-loading': this.loading,
-        },
-      ];
-    },
-  },
-  methods: {
-    start() {
-      this.loading = true;
-    },
-    finish() {
-      this.loading = false;
+  props: {
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
 };
@@ -34,13 +20,13 @@ export default {
 .loading-indicator {
   position: fixed;
   top: 0;
-  width: 100vw;
+  width: 100%;
   height: 5px;
   background: $main-gradient;
   background-size: 300% 100%;
+}
 
-  &--is-loading {
-    background-position: right;
-  }
+.loading-indicator--is-loading {
+  background-position: right;
 }
 </style>

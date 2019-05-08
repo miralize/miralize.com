@@ -1,37 +1,31 @@
-require('dotenv').config();
 const axios = require('axios');
+require('dotenv').config({ path: './.env.local' });
 
-const { LASTFM_API_KEY } = process.env;
-const LASTFM_ENDPOINT = 'http://ws.audioscrobbler.com/2.0/';
-const LASTFM_CONFIG = {
-  params: {
-    user: 'miralize',
-    api_key: LASTFM_API_KEY,
-    format: 'json',
-  },
-};
 
-exports.handler = async (event, context, callback) => {
-  let response;
+exports.handler = async (event) => {
   try {
-    const res = await axios.get(LASTFM_ENDPOINT, {
-      ...LASTFM_CONFIG,
-      params: {
-        ...LASTFM_CONFIG.params,
-        ...event.queryStringParameters,
-      },
-    });
-
-    response = {
-      statusCode: 200,
-      body: JSON.stringify(res.data),
+    const lastFMUrl = 'http://ws.audioscrobbler.com/2.0/';
+    const lastFMApiKey = process.env.LASTFM_API_KEY;
+    const defaultLastFmParams = {
+      user: 'miralize',
+      api_key: lastFMApiKey,
+      format: 'json',
+      method: 'user.gettopalbums',
+      period: '7day',
     };
-  } catch (e) {
-    response = {
-      statusCode: 500,
-      body: 'Error processing your request',
+
+    const params = Object.assign({}, defaultLastFmParams, event.queryStringParameters);
+    console.log('params:', params);
+    const response = await axios.get(lastFMUrl, { params });
+
+    return {
+      statusCode: response.status,
+      body: JSON.stringify(response.data),
+    };
+  } catch (err) {
+    return {
+      statusCode: err.response.status,
+      body: JSON.stringify(err.response.data),
     };
   }
-
-  callback(null, response);
 };

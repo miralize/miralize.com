@@ -14,6 +14,16 @@ module.exports = {
       .use('vue-svg-loader')
       .loader('vue-svg-loader');
   },
+  devServer: {
+    proxy: {
+      '/.netlify/functions': {
+        target: 'http://localhost:8125',
+        pathRewrite: {
+          "^/\\.netlify/functions": "",
+        }
+      }
+    },
+  },
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'scss',
