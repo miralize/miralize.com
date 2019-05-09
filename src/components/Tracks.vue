@@ -1,7 +1,9 @@
 <template>
-  <div class="latest-tracks">
-    <h2>Heavy Rotation</h2>
-    <div class="latest-tracks__list">
+  <div class="tracks">
+    <h2 class="tracks__title">
+      Heavy Rotation
+    </h2>
+    <div class="tracks__list">
       <track-item
         v-for="track in tracks"
         :key="track.name"
@@ -13,7 +15,7 @@
 
 <script>
 /* eslint-disable global-require */
-import Axios from 'axios';
+import axios from 'axios';
 import TrackItem from './Track.vue';
 
 export default {
@@ -26,48 +28,50 @@ export default {
     };
   },
   async created() {
-    const { data: { topalbums: { album } } } = await Axios.get('.netlify/functions/lastfm', {
+    const response = await axios.get('.netlify/functions/lastfm', {
       params: {
         method: 'user.gettopalbums',
         period: '7day', // overall | 7day | 1month | 3month | 6month | 12month
       },
     });
-    this.tracks = album.slice(0, 5);
+    const albums = response.data.topalbums.album;
+    this.tracks = albums.slice(0, 6);
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.latest-tracks {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template: auto 1fr / repeat(5, 1fr);
+.tracks {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  grid-column: 1 / -1;
+  padding: 32px 16px 48px;
+}
 
-  h2 {
-    grid-column: 1 / -1;
-    margin-bottom: 40px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.1;
-    font-size: 22px;
+.tracks__title {
+  width: 100%;
+  margin-bottom: 40px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1;
+  font-size: 22px;
 
-    &::after {
-      margin-top: 16px;
-      display: block;
-      content: " ";
-      height: 4px;
-      width: 100%;
-      background: $main-gradient;
-      background-size: 300% 100%;
-    }
+  &::after {
+    margin-top: 16px;
+    display: block;
+    content: " ";
+    height: 4px;
+    width: 100%;
+    background: $main-gradient;
+    background-size: 300% 100%;
   }
 }
 
-.latest-tracks__list {
+.tracks__list {
   grid-column: 1/-1;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(150px, auto));
   grid-gap: 30px;
 }
 </style>
