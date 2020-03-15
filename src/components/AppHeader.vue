@@ -40,6 +40,7 @@ export default {
 }
 
 .app-logo__img {
-  width: 100%;
+  width: 100px;
+  height: auto;
 }
 </style>

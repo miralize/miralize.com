@@ -15,7 +15,7 @@
 
 <script>
 /* eslint-disable global-require */
-import TrackItem from './Track.vue';
+import TrackItem from '@/components/TrackItem';
 
 export default {
   components: {

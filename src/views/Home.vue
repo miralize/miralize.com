@@ -18,13 +18,14 @@
         If you'd like to get in touch, please reach out to me using the links below.
       </p>
 
-      <nav class="profile-links">
+      <nav class="social-links">
         <a
           v-for="link in socialLinks"
           :key="link.title"
           :title="link.title"
           :href="link.url"
           target="_blank"
+          class="social-link"
         >
           <component :is="link.icon" />
         </a>
@@ -34,30 +35,18 @@
       resource="recentTracks"
       title="Latest tracks listened to"
     />
-    <!-- <tracks
-      :params="topAlbumParams"
-      title="Heavy rotation"
-    /> -->
   </div>
 </template>
 
 <script>
 // Components
-import Tracks from '@/components/Tracks.vue';
+import Tracks from '@/components/Tracks';
 
 // Constants
 import socialLinks from '@/utils/constants/socialLinks';
 
-// Social icons
-import Dribbble from '@/assets/social-icons/dribbble.svg';
-import Github from '@/assets/social-icons/github.svg';
-import Twitter from '@/assets/social-icons/twitter.svg';
-
 export default {
   components: {
-    Dribbble,
-    Github,
-    Twitter,
     Tracks,
   },
   data() {
@@ -112,7 +101,7 @@ export default {
   }
 }
 
-.profile-links {
+.social-links {
   grid-column: 1 / -1;
   justify-self: center;
   display: grid;
@@ -120,10 +109,15 @@ export default {
   justify-content: space-between;
   grid-template-columns: auto auto auto;
   grid-gap: 16px;
+}
 
-  a {
+.social-link {
     display: flex;
     align-content: center;
-  }
+
+    svg {
+      height: 32px;
+      width: auto;
+    }
 }
 </style>

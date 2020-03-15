@@ -1,31 +1,32 @@
 const path = require('path');
 
-const vueSvgLoaderOptions = {
-  svgo: {
-    plugins: [
-      { prefixIds: true },
-      { removeDimensions: true },
-      { removeViewBox: false },
-    ],
-  },
-};
 module.exports = {
   chainWebpack: (config) => {
+    // when file not specified try to load vue files 1st
+    config.resolve.extensions.prepend('.vue');
+
+    // SVG loader will transform imported SVGS to Vue components
     const svgRule = config.module.rule('svg');
-
-    // clear all existing loaders.
-    // if you don't do this, the loader below will be appended to
-    // existing loaders of the rule.
     svgRule.uses.clear();
-
-    // add replacement loader(s)
     svgRule
       .use('babel-loader')
       .loader('babel-loader')
       .end()
       .use('vue-svg-loader')
       .loader('vue-svg-loader')
-      .options(vueSvgLoaderOptions);
+      .options({
+        svgo: {
+          plugins: [
+            'prefixIds',
+            'removeTitle',
+            'removeDimensions',
+            'removeDesc',
+            'removeComments',
+            'removeDoctype',
+            { removeViewBox: false },
+          ],
+        },
+      });
   },
   pluginOptions: {
     netlify: {

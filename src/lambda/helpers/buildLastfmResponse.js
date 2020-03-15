@@ -1,10 +1,10 @@
 const axios = require('axios');
 require('dotenv').config({ path: './.env.local' });
 
-
-exports.handler = async (event) => {
+export default async ({ method, event }) => {
   try {
     const lastFMUrl = 'http://ws.audioscrobbler.com/2.0/';
+
     const lastFMApiKey = process.env.LASTFM_API_KEY;
     if (!lastFMApiKey) {
       return {
@@ -12,18 +12,19 @@ exports.handler = async (event) => {
         body: 'There was an error.',
       };
     }
-    const defaultLastFmParams = {
+
+    const params = {
       user: 'miralize',
       api_key: lastFMApiKey,
       format: 'json',
-      method: 'user.gettopalbums',
-      period: '7day',
+      method,
+      ...event.queryStringParameters,
     };
 
-    const params = { ...defaultLastFmParams, ...event.queryStringParameters };
     if (process.env.NODE_ENV !== 'development') {
       console.log('params:', params);
     }
+
     const response = await axios.get(lastFMUrl, { params });
 
     return {
