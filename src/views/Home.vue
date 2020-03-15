@@ -1,8 +1,6 @@
 <template>
   <div>
-    <section
-      class="intro"
-    >
+    <section class="intro">
       <h1>Hi, I’m Seán O’Grady.</h1>
       <p>
         I’m a software developer, currently working at
@@ -14,18 +12,18 @@
         </a> in Cork!.
       </p>
       <p>
-        If you'd like to get in touch, please follow me below.
+        If you'd like to get in touch, please reach out to me using the links below.
       </p>
 
       <nav class="profile-links">
         <a
-          v-for="item in socialLinks"
-          :key="item.title"
-          :title="item.title"
-          :href="item.url"
+          v-for="link in socialLinks"
+          :key="link.title"
+          :title="link.title"
+          :href="link.url"
           target="_blank"
         >
-          <component :is="item.icon" />
+          <component :is="link.icon" />
         </a>
       </nav>
     </section>
