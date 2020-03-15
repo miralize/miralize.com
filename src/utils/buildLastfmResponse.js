@@ -1,16 +1,17 @@
 const axios = require('axios');
 require('dotenv').config({ path: './.env.local' });
 
-export default async ({ method, event }) => {
+export default async ({
+  method,
+  event,
+  parseResponse = (res) => (res),
+}) => {
   try {
     const lastFMUrl = 'http://ws.audioscrobbler.com/2.0/';
 
     const lastFMApiKey = process.env.LASTFM_API_KEY;
     if (!lastFMApiKey) {
-      return {
-        statusCode: 500,
-        body: 'There was an error.',
-      };
+      throw new Error('There was an error building the request');
     }
 
     const params = {
@@ -26,15 +27,18 @@ export default async ({ method, event }) => {
     }
 
     const response = await axios.get(lastFMUrl, { params });
+    const transformedResponse = parseResponse(response);
+    console.log('transformedResponse:', transformedResponse);
 
     return {
       statusCode: response.status,
-      body: JSON.stringify(response.data),
+      body: JSON.stringify(transformedResponse.data),
     };
   } catch (err) {
+    console.log('err:', err);
     return {
-      statusCode: err.response.status,
-      body: JSON.stringify(err.response.data),
+      statusCode: err?.response?.status ?? 500,
+      body: JSON.stringify(err?.response?.data ?? {}),
     };
   }
 };

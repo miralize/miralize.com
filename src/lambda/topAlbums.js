@@ -1,15 +1,15 @@
 import buildLastfmResponse from '../utils/buildLastfmResponse';
 
 exports.handler = async (event) => buildLastfmResponse({
-  method: 'user.getrecenttracks',
+  method: 'user.gettopalbums',
   event,
   parseResponse: (response) => ({
     data: {
-      recentTracks: response.data.recenttracks.track.map((track, index) => ({
-        ...track,
+      topAlbums: response.data.topalbums.album.map((album, index) => ({
+        ...album,
         id: Date.now().toString() + index,
       })),
-      meta: response.data.recenttracks['@attr'],
+      meta: response.data.topalbums['@attr'],
     },
   }),
 });

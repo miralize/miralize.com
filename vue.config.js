@@ -30,7 +30,7 @@ module.exports = {
   },
   pluginOptions: {
     netlify: {
-      port: 8125,
+      port: 8787,
     },
     'style-resources-loader': {
       preProcessor: 'scss',

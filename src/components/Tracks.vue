@@ -1,9 +1,12 @@
 <template>
   <div class="tracks">
     <h2 class="tracks__title">
-      {{ title }}
+      {{ isLoading ? 'Loading' : title }}
     </h2>
-    <div class="tracks__list">
+    <div
+      v-if="!isLoading"
+      class="tracks__list"
+    >
       <TrackItem
         v-for="track in items"
         :key="track.id"
@@ -26,6 +29,10 @@ export default {
       type: String,
       required: true,
     },
+    params: {
+      type: Object,
+      default: () => ({}),
+    },
     resource: {
       type: String,
       required: true,
@@ -37,6 +44,9 @@ export default {
     };
   },
   computed: {
+    isLoading() {
+      return this.$store.getters[`${this.resource}/isLoading`];
+    },
     items() {
       return this.$store.getters[`${this.resource}/list`];
     },
@@ -45,10 +55,15 @@ export default {
     this.getTopAlbums();
   },
   methods: {
-    async getTopAlbums() {
-      console.log('this.resource/fetchList', `${this.resource}/fetchList`);
-      const response = await this.$store.dispatch(`${this.resource}/fetchList`);
-      console.log('response:', response);
+    getTopAlbums() {
+      this.$store.dispatch(`${this.resource}/fetchList`, {
+        config: {
+          params: {
+            limit: 6,
+            ...this.params,
+          },
+        },
+      });
     },
   },
 };

@@ -33,7 +33,12 @@
     </section>
     <tracks
       resource="recentTracks"
-      title="Latest tracks listened to"
+      title="Recently played"
+    />
+    <tracks
+      resource="topAlbums"
+      :params="{ period: '7day', limit: 12 }"
+      title="Albums I'm listening to"
     />
   </div>
 </template>
@@ -51,14 +56,7 @@ export default {
   },
   data() {
     return {
-      latestTracksParams: {
-        method: 'user.getrecenttracks',
-      },
       socialLinks,
-      topAlbumParams: {
-        method: 'user.gettopalbums',
-        period: '7day', // overall | 7day | 1month | 3month | 6month | 12month
-      },
     };
   },
 };
