@@ -1,10 +1,10 @@
 <template>
   <div class="tracks">
     <h2 class="tracks__title">
-      Heavy Rotation
+      {{ title }}
     </h2>
     <div class="tracks__list">
-      <track-item
+      <TrackItem
         v-for="track in tracks"
         :key="track.name"
         :track="track"
@@ -22,20 +22,32 @@ export default {
   components: {
     TrackItem,
   },
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    params: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       tracks: null,
     };
   },
-  async created() {
-    const response = await axios.get('.netlify/functions/lastfm', {
-      params: {
-        method: 'user.gettopalbums',
-        period: '7day', // overall | 7day | 1month | 3month | 6month | 12month
-      },
-    });
-    const albums = response.data.topalbums.album;
-    this.tracks = albums.slice(0, 6);
+  created() {
+    this.getTopAlbums();
+  },
+  methods: {
+    async getTopAlbums() {
+      const response = await axios.get('/.netlify/functions/lastfm', {
+        params: this.params,
+      });
+      const albums = response.data.topalbums.album;
+      this.tracks = albums.slice(0, 6);
+    },
   },
 };
 </script>

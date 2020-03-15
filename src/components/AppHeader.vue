@@ -5,7 +5,7 @@
       to="/"
       exact
     >
-      <logo />
+      <logo class="app-logo__img" />
     </router-link>
   </header>
 </template>
@@ -37,5 +37,9 @@ export default {
   justify-items: center;
   color: c(blue);
   background-blend-mode: overlay;
+}
+
+.app-logo__img {
+  width: 100%;
 }
 </style>

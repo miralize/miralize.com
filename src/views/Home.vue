@@ -1,15 +1,18 @@
 <template>
   <div>
     <section class="intro">
-      <h1>Hi, I’m Seán O’Grady.</h1>
+      <h1>I’m Seán O’Grady.</h1>
       <p>
         I’m a software developer, currently working at
         <a
           href="https://teamwork.com"
           target="_blank"
-        >
-          Teamwork
-        </a> in Cork!.
+          v-text="'Teamwork'"
+        />, working on our <a
+          href="https://teamwork.com/crm"
+          target="_blank"
+          v-text="'CRM product'"
+        /> in Cork!.
       </p>
       <p>
         If you'd like to get in touch, please reach out to me using the links below.
@@ -27,7 +30,14 @@
         </a>
       </nav>
     </section>
-    <tracks />
+    <tracks
+      :params="latestTracksParams"
+      title="Latest tracks listened to"
+    />
+    <tracks
+      :params="topAlbumParams"
+      title="Heavy rotation"
+    />
   </div>
 </template>
 
@@ -52,7 +62,14 @@ export default {
   },
   data() {
     return {
+      latestTracksParams: {
+        method: 'user.getrecenttracks',
+      },
       socialLinks,
+      topAlbumParams: {
+        method: 'user.gettopalbums',
+        period: '7day', // overall | 7day | 1month | 3month | 6month | 12month
+      },
     };
   },
 };

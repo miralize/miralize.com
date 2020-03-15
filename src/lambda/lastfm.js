@@ -6,6 +6,12 @@ exports.handler = async (event) => {
   try {
     const lastFMUrl = 'http://ws.audioscrobbler.com/2.0/';
     const lastFMApiKey = process.env.LASTFM_API_KEY;
+    if (!lastFMApiKey) {
+      return {
+        statusCode: 500,
+        body: 'There was an error.',
+      };
+    }
     const defaultLastFmParams = {
       user: 'miralize',
       api_key: lastFMApiKey,

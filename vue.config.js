@@ -1,5 +1,14 @@
 const path = require('path');
 
+const vueSvgLoaderOptions = {
+  svgo: {
+    plugins: [
+      { prefixIds: true },
+      { removeDimensions: true },
+      { removeViewBox: false },
+    ],
+  },
+};
 module.exports = {
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg');
@@ -15,7 +24,8 @@ module.exports = {
       .loader('babel-loader')
       .end()
       .use('vue-svg-loader')
-      .loader('vue-svg-loader');
+      .loader('vue-svg-loader')
+      .options(vueSvgLoaderOptions);
   },
   pluginOptions: {
     netlify: {
