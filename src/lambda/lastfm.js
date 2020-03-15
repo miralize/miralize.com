@@ -14,8 +14,10 @@ exports.handler = async (event) => {
       period: '7day',
     };
 
-    const params = Object.assign({}, defaultLastFmParams, event.queryStringParameters);
-    console.log('params:', params);
+    const params = { ...defaultLastFmParams, ...event.queryStringParameters };
+    if (process.env.NODE_ENV !== 'development') {
+      console.log('params:', params);
+    }
     const response = await axios.get(lastFMUrl, { params });
 
     return {

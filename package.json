@@ -3,14 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "concurrently 'npm run serve:*'",
-    "build:netlify": "netlify-lambda build src/lambda -p 8125",
     "build:web": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "serve": "concurrently 'npm run serve:*'",
-    "serve:netlify": "netlify-lambda serve src/lambda -p 8125",
-    "serve:web": "vue-cli-service serve",
-    "test:e2e": "vue-cli-service test:e2e",
+    "serve": "vue-cli-service serve",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
@@ -25,7 +20,6 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.3",
-    "@vue/cli-plugin-e2e-cypress": "^4.2.3",
     "@vue/cli-plugin-eslint": "^4.2.3",
     "@vue/cli-plugin-pwa": "^4.2.3",
     "@vue/cli-plugin-unit-jest": "^4.2.3",
@@ -54,6 +48,11 @@
     "*.{js,vue}": [
       "vue-cli-service lint",
       "git add"
+    ]
+  },
+  "vuePlugins": {
+    "service": [
+      "build/vue-cli-local-plugins/vue-cli-plugin-netlify-lambda/index.js"
     ]
   }
 }

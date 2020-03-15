@@ -11,20 +11,16 @@ module.exports = {
 
     // add replacement loader(s)
     svgRule
+      .use('babel-loader')
+      .loader('babel-loader')
+      .end()
       .use('vue-svg-loader')
       .loader('vue-svg-loader');
   },
-  devServer: {
-    proxy: {
-      '/.netlify/functions': {
-        target: 'http://localhost:8125',
-        pathRewrite: {
-          '^/\\.netlify/functions': '',
-        },
-      },
-    },
-  },
   pluginOptions: {
+    netlify: {
+      port: 8125,
+    },
     'style-resources-loader': {
       preProcessor: 'scss',
       patterns: [
