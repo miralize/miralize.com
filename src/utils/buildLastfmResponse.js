@@ -22,20 +22,18 @@ export default async ({
       ...event.queryStringParameters,
     };
 
-    if (process.env.NODE_ENV !== 'development') {
+    if (process.env.NODE_ENV === 'development') {
       console.log('params:', params);
     }
 
     const response = await axios.get(lastFMUrl, { params });
     const transformedResponse = parseResponse(response);
-    console.log('transformedResponse:', transformedResponse);
 
     return {
       statusCode: response.status,
       body: JSON.stringify(transformedResponse.data),
     };
   } catch (err) {
-    console.log('err:', err);
     return {
       statusCode: err?.response?.status ?? 500,
       body: JSON.stringify(err?.response?.data ?? {}),
