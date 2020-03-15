@@ -1,18 +1,19 @@
 {
   "compilerOptions": {
     // "checkJs": true,
-    "target": "ES6",
+    "target": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
     }
   },
-  "include": [
-    "src/**/*"
-  ],
   "exclude": [
+    "coverage",
+    "dist",
     "node_modules"
   ]
 }

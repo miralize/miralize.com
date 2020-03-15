@@ -31,13 +31,13 @@
       </nav>
     </section>
     <tracks
-      :params="latestTracksParams"
+      resource="recentTracks"
       title="Latest tracks listened to"
     />
-    <tracks
+    <!-- <tracks
       :params="topAlbumParams"
       title="Heavy rotation"
-    />
+    /> -->
   </div>
 </template>
 

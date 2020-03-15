@@ -5,8 +5,8 @@
     </h2>
     <div class="tracks__list">
       <TrackItem
-        v-for="track in tracks"
-        :key="track.name"
+        v-for="track in items"
+        :key="track.id"
         :track="track"
       />
     </div>
@@ -15,7 +15,6 @@
 
 <script>
 /* eslint-disable global-require */
-import axios from 'axios';
 import TrackItem from './Track.vue';
 
 export default {
@@ -27,8 +26,8 @@ export default {
       type: String,
       required: true,
     },
-    params: {
-      type: Object,
+    resource: {
+      type: String,
       required: true,
     },
   },
@@ -37,16 +36,19 @@ export default {
       tracks: null,
     };
   },
+  computed: {
+    items() {
+      return this.$store.getters[`${this.resource}/list`];
+    },
+  },
   created() {
     this.getTopAlbums();
   },
   methods: {
     async getTopAlbums() {
-      const response = await axios.get('/.netlify/functions/lastfm', {
-        params: this.params,
-      });
-      const albums = response.data.topalbums.album;
-      this.tracks = albums.slice(0, 6);
+      console.log('this.resource/fetchList', `${this.resource}/fetchList`);
+      const response = await this.$store.dispatch(`${this.resource}/fetchList`);
+      console.log('response:', response);
     },
   },
 };

@@ -15,6 +15,7 @@ module.exports = {
       singleline: 'never',
       multiline: 'always',
     }],
+    'import/prefer-default-export': ['off']
   },
   parserOptions: {
     parser: 'babel-eslint',
