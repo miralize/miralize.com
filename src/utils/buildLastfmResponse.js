@@ -15,11 +15,11 @@ export default async ({
     }
 
     const params = {
+      ...event.queryStringParameters,
       user: 'miralize',
       api_key: lastFMApiKey,
       format: 'json',
       method,
-      ...event.queryStringParameters,
     };
 
     if (process.env.NODE_ENV === 'development') {
