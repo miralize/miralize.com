@@ -1,20 +1,20 @@
+<script lang="ts">
+import { defineComponent } from 'vue';
+import AppHeader from '@/components/AppHeader.vue';
+
+export default defineComponent({
+  components: {
+    AppHeader,
+  },
+});
+</script>
+
 <template>
   <div class="app">
     <app-header />
     <router-view class="container" />
   </div>
 </template>
-
-
-<script>
-import AppHeader from '@/components/AppHeader';
-
-export default {
-  components: {
-    AppHeader,
-  },
-};
-</script>
 
 <style lang="scss" src="@/styles/root.scss"></style>
 <style lang="scss" scoped>

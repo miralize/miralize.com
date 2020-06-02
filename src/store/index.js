@@ -1,19 +1,12 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import recentTracks from './modules/recentTracks';
 import topAlbums from './modules/topAlbums';
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+const store = createStore({
   modules: {
     recentTracks,
     topAlbums,
   },
 });
+
+export default store;

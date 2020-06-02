@@ -1,3 +1,20 @@
+<script lang="ts">
+import socialLinks from '@/utils/constants/socialLinks';
+import { defineComponent } from 'vue';
+import Tracks from '@/components/Tracks.vue';
+
+export default defineComponent({
+  components: {
+    Tracks,
+  },
+  setup() {
+    return {
+      socialLinks,
+    };
+  },
+});
+</script>
+
 <template>
   <div>
     <section class="intro">
@@ -27,7 +44,7 @@
           target="_blank"
           class="social-link"
         >
-          <component :is="link.icon" />
+          <img :src="link.iconPath">
         </a>
       </nav>
     </section>
@@ -43,24 +60,6 @@
   </div>
 </template>
 
-<script>
-// Components
-import Tracks from '@/components/Tracks';
-
-// Constants
-import socialLinks from '@/utils/constants/socialLinks';
-
-export default {
-  components: {
-    Tracks,
-  },
-  data() {
-    return {
-      socialLinks,
-    };
-  },
-};
-</script>
 <style lang="scss" scoped>
 .intro {
   grid-column: 1/ -1;

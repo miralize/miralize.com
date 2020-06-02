@@ -1,20 +1,22 @@
-<template>
-  <div
-    :class="{ 'loading-indicator--is-loading': loading }"
-    class="loading-indicator"
-  />
-</template>
-
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   props: {
     loading: {
       type: Boolean,
       default: false,
     },
   },
-};
+});
 </script>
+
+<template>
+  <div
+    class="loading-indicator"
+    :class="{ 'loading-indicator--is-loading': loading }"
+  />
+</template>
 
 <style lang="scss" scoped>
 .loading-indicator {

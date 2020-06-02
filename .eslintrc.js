@@ -4,8 +4,9 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:vue/recommended',
+    'plugin:vue/vue3-recommended',
     '@vue/airbnb',
+    '@vue/typescript',
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -15,10 +16,10 @@ module.exports = {
       singleline: 'never',
       multiline: 'always',
     }],
-    'import/extensions': 0,
+    'import/no-unresolved': 0,
     'import/prefer-default-export': 0,
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@typescript-eslint/parser',
   },
 };

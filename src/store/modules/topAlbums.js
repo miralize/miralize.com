@@ -1,10 +1,8 @@
-import createCrudModule from 'vuex-crud';
-import Axios from 'axios';
+import { createCrudModule } from '@/utils/vuex-crud';
 
 export default createCrudModule({
   resource: 'topAlbums',
   urlRoot: '/.netlify/functions/topAlbums',
-  client: Axios,
   parseList: (response) => ({
     data: response.data.topAlbums,
   }),

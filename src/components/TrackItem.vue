@@ -1,30 +1,104 @@
+<script lang="ts">
+import {
+  defineComponent, ref, computed,
+} from 'vue';
+
+export default defineComponent({
+  props: {
+    track: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup() {
+    const isHovering = ref(false);
+    const imgContainer:{ value:HTMLDivElement|null } = ref(null);
+    const imgBounds:{ value:ClientRect|null } = ref(null);
+    const rx = ref(0);
+    const ry = ref(0);
+    const tz = ref(0);
+
+    const onMouseOver = () => {
+      isHovering.value = true;
+      imgBounds.value = imgContainer.value && imgContainer.value.getBoundingClientRect();
+    };
+
+    const onMouseOut = () => {
+      isHovering.value = false;
+      imgBounds.value = null;
+      rx.value = 0;
+      ry.value = 0;
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (imgBounds.value) {
+        const x = e.clientX - imgBounds.value.left;
+        const y = e.clientY - imgBounds.value.top;
+
+        const xc = imgBounds.value.width / 2;
+        const yc = imgBounds.value.height / 2;
+
+        const dx = x - xc;
+        const dy = y - yc;
+
+        rx.value = dy / -7;
+        ry.value = dx / 7;
+      }
+    };
+
+    const onMouseDown = () => {
+      tz.value = -25;
+    };
+    const onMouseUp = () => {
+      tz.value = 0;
+    };
+
+    const calculatedStyles = computed(() => ({
+      '--rx': `${rx.value}`,
+      '--ry': `${ry.value}`,
+      '--tz': `${tz.value}px`,
+    }));
+
+    return {
+      calculatedStyles,
+      imgContainer,
+      isHovering,
+      onMouseOver,
+      onMouseOut,
+      onMouseMove,
+      onMouseDown,
+      onMouseUp,
+    };
+  },
+});
+</script>
+
 <template>
-  <div class="track">
+  <div
+    class="track"
+    :style="calculatedStyles"
+  >
     <div
-      ref="imageContainer"
-      :class="{'track-img__container--hovered': hovered}"
+      ref="imgContainer"
+      :class="{'track-img__container--hovered': isHovering}"
       class="track-img__container"
-      @mouseover="startHover"
-      @mouseout="endHover"
-      @mousemove="calculateHover"
-      @mousedown="clickIn"
-      @mouseup="clickOut"
+      @mouseover="onMouseOver"
+      @mouseout="onMouseOut"
+      @mousemove="onMouseMove"
+      @mousedown="onMouseDown"
+      @mouseup="onMouseUp"
     >
-      <div
-        :style="calculatedStyles"
+      <img
+        v-if="track.image[3]['#text']"
         class="track-img"
+        :src="track.image[3]['#text']"
+        :alt="track.name"
       >
-        <img
-          v-if="track.image[3]['#text']"
-          :src="track.image[3]['#text']"
-          :alt="track.name"
-        >
-        <img
-          v-else
-          src="@/assets/default-album-cover.png"
-          :alt="track.name"
-        >
-      </div>
+      <img
+        v-else
+        src="@/assets/default-album-cover.png"
+        :alt="track.name"
+      >
     </div>
     <div class="track__meta">
       <div class="track__name">
@@ -40,80 +114,14 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    track: {
-      type: Object,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      hovered: false,
-      imgBounds: null,
-      rx: 0,
-      ry: 0,
-      tz: 0,
-    };
-  },
-
-  computed: {
-    calculatedStyles() {
-      return [
-        { '--rx': `${this.rx}` },
-        { '--ry': `${this.ry}` },
-        { '--tz': `${this.tz}px` },
-      ];
-    },
-  },
-
-  methods: {
-    startHover() {
-      this.hovered = true;
-      this.imgBounds = this.$refs.imageContainer.getBoundingClientRect();
-    },
-    clickIn() {
-      this.tz = -25;
-    },
-    clickOut() {
-      this.tz = 0;
-    },
-    calculateHover(e) {
-      if (this.imgBounds) {
-        const x = e.clientX - this.imgBounds.left;
-        const y = e.clientY - this.imgBounds.top;
-
-        const xc = this.imgBounds.width / 2;
-        const yc = this.imgBounds.height / 2;
-
-        const dx = x - xc;
-        const dy = y - yc;
-
-        this.rx = dy / -7;
-        this.ry = dx / 7;
-      }
-    },
-    endHover() {
-      this.hovered = false;
-      this.imgBounds = null;
-      this.rx = 0;
-      this.ry = 0;
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 .track {
-  min-width: 0;
   transform-style: preserve-3d;
   transform: perspective(800px);
-  backface-visibility: hidden;
-  user-select: none;
+  will-change: transform;
 }
 
-.track-img {
+.track-img__container {
   --rx-deg: calc(var(--rx) * 1deg);
   --ry-deg: calc(var(--ry) * 1deg);
   --rx-px: calc(var(--rx) * 1px);
@@ -124,8 +132,7 @@ export default {
   img {
     vertical-align: middle;
     max-width: 100%;
-    transform: rotateX(var(--rx-deg)) rotateY(var(--ry-deg))
-      translateZ(var(--tz));
+    transform: rotateX(var(--rx-deg)) rotateY(var(--ry-deg)) translateZ(var(--tz));
     transition: transform 0.1s ease;
     will-change: transform;
     border-radius: 6px;

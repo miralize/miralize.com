@@ -1,26 +1,9 @@
-<template>
-  <div class="tracks">
-    <h2 class="tracks__title">
-      {{ isLoading ? 'Loading' : title }}
-    </h2>
-    <div
-      v-if="!isLoading"
-      class="tracks__list"
-    >
-      <TrackItem
-        v-for="track in items"
-        :key="track.id"
-        :track="track"
-      />
-    </div>
-  </div>
-</template>
+<script lang="ts">
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
+import TrackItem from '@/components/TrackItem.vue';
 
-<script>
-/* eslint-disable global-require */
-import TrackItem from '@/components/TrackItem';
-
-export default {
+export default defineComponent({
   components: {
     TrackItem,
   },
@@ -38,36 +21,53 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      tracks: null,
-    };
-  },
-  computed: {
-    isLoading() {
-      return this.$store.getters[`${this.resource}/isLoading`];
-    },
-    items() {
-      return this.$store.getters[`${this.resource}/list`];
-    },
-  },
-  created() {
-    this.getTopAlbums();
-  },
-  methods: {
-    getTopAlbums() {
-      this.$store.dispatch(`${this.resource}/fetchList`, {
+  setup(props) {
+    const store = useStore();
+    const isLoading = computed(
+      () => store.getters[`${props.resource}/isLoading`],
+    );
+    const tracks = computed(
+      () => store.getters[`${props.resource}/list`],
+    );
+
+    const getTopAlbums = async () => {
+      await store.dispatch(`${props.resource}/fetchList`, {
         config: {
           params: {
             limit: 6,
-            ...this.params,
+            ...props.params,
           },
         },
       });
-    },
+    };
+
+    getTopAlbums();
+
+    return {
+      tracks,
+      isLoading,
+    };
   },
-};
+});
 </script>
+
+<template>
+  <div class="tracks">
+    <h2 class="tracks__title">
+      {{ isLoading ? 'Loading' : title }}
+    </h2>
+    <div
+      v-if="!isLoading"
+      class="tracks__list"
+    >
+      <TrackItem
+        v-for="track in tracks"
+        :key="track.id"
+        :track="track"
+      />
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .tracks {
