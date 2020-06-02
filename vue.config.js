@@ -2,8 +2,9 @@ const path = require('path');
 
 module.exports = {
   chainWebpack: (config) => {
-    // when file not specified try to load vue files 1st
-    config.resolve.extensions.prepend('.vue');
+    if (process.env.NODE_ENV !== 'development') {
+      config.plugins.delete('fork-ts-checker');
+    }
 
     // SVG loader will transform imported SVGS to Vue components
     // const svgRule = config.module.rule('svg');
