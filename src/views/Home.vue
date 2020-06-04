@@ -1,11 +1,18 @@
 <script lang="ts">
+/* eslint-disable import/no-dynamic-require, global-require */
 import socialLinks from '@/utils/constants/socialLinks';
+import Dribbble from '@/assets/social-icons/dribbble.svg';
+import Github from '@/assets/social-icons/github.svg';
+import Twitter from '@/assets/social-icons/twitter.svg';
 import { defineComponent, computed } from 'vue';
 import Tracks from '@/components/Tracks.vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
   components: {
+    Dribbble,
+    Github,
+    Twitter,
     Tracks,
   },
   setup() {
