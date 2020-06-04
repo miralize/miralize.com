@@ -1,22 +1,59 @@
 <script lang="ts">
 import socialLinks from '@/utils/constants/socialLinks';
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 import Tracks from '@/components/Tracks.vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   components: {
     Tracks,
   },
   setup() {
+    const store = useStore();
+
+    const recentTracks = computed(() => (
+      store.getters['recentTracks/list']
+    ));
+    const topAlbums = computed(() => (
+      store.getters['topAlbums/list']
+    ));
+
+    const fetchRecentTracks = () => (
+      store.dispatch('recentTracks/fetchList', {
+        config: {
+          params: {
+            limit: 6,
+          },
+        },
+      })
+    );
+
+    const fetchAlbums = () => (
+      store.dispatch('topAlbums/fetchList', {
+        config: {
+          params: {
+            limit: 12,
+            period: '7day',
+          },
+        },
+      })
+    );
+
+    const fetchData = () => Promise.all([fetchRecentTracks, fetchAlbums]);
+
+    fetchData();
+
     return {
+      recentTracks,
       socialLinks,
+      topAlbums,
     };
   },
 });
 </script>
 
 <template>
-  <div>
+  <div class="home">
     <section class="intro">
       <h1>I’m Seán O’Grady.</h1>
       <p>
@@ -24,10 +61,12 @@ export default defineComponent({
         <a
           href="https://teamwork.com"
           target="_blank"
+          rel="noopener noreferrer"
           v-text="'Teamwork'"
         />, working on our <a
           href="https://teamwork.com/crm"
           target="_blank"
+          rel="noopener noreferrer"
           v-text="'CRM product'"
         /> in Cork!.
       </p>
@@ -42,19 +81,22 @@ export default defineComponent({
           :title="link.title"
           :href="link.url"
           target="_blank"
+          rel="noopener noreferrer"
           class="social-link"
         >
-          <img :src="link.iconPath">
+          <component
+            :is="link.icon"
+            :key="link.icon"
+          />
         </a>
       </nav>
     </section>
-    <tracks
-      resource="recentTracks"
+    <Tracks
+      :tracks="recentTracks"
       title="Recently played"
     />
-    <tracks
-      resource="topAlbums"
-      :params="{ period: '7day', limit: 12 }"
+    <Tracks
+      :tracks="topAlbums"
       title="Albums I'm listening to"
     />
   </div>

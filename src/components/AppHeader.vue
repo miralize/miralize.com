@@ -1,7 +1,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
+import Logo from '@/assets/logo.svg';
 
-export default defineComponent({});
+export default defineComponent({
+  components: {
+    Logo,
+  },
+});
 </script>
 
 <template>
@@ -11,10 +16,7 @@ export default defineComponent({});
       to="/"
       exact
     >
-      <img
-        src="@/assets/logo.svg"
-        class="app-logo__img"
-      >
+      <Logo />
     </router-link>
   </header>
 </template>

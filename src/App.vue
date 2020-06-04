@@ -11,12 +11,13 @@ export default defineComponent({
 
 <template>
   <div class="app">
-    <app-header />
-    <router-view class="container" />
+    <AppHeader />
+    <RouterView class="container" />
   </div>
 </template>
 
 <style lang="scss" src="@/styles/root.scss"></style>
+
 <style lang="scss" scoped>
 .app {
   display: grid;

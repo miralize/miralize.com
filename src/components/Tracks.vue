@@ -1,6 +1,5 @@
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import { useStore } from 'vuex';
+import { defineComponent } from 'vue';
 import TrackItem from '@/components/TrackItem.vue';
 
 export default defineComponent({
@@ -12,41 +11,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    params: {
-      type: Object,
-      default: () => ({}),
-    },
-    resource: {
-      type: String,
+    tracks: {
+      type: Array,
       required: true,
     },
-  },
-  setup(props) {
-    const store = useStore();
-    const isLoading = computed(
-      () => store.getters[`${props.resource}/isLoading`],
-    );
-    const tracks = computed(
-      () => store.getters[`${props.resource}/list`],
-    );
-
-    const getTopAlbums = async () => {
-      await store.dispatch(`${props.resource}/fetchList`, {
-        config: {
-          params: {
-            limit: 6,
-            ...props.params,
-          },
-        },
-      });
-    };
-
-    getTopAlbums();
-
-    return {
-      tracks,
-      isLoading,
-    };
   },
 });
 </script>
@@ -54,10 +22,10 @@ export default defineComponent({
 <template>
   <div class="tracks">
     <h2 class="tracks__title">
-      {{ isLoading ? 'Loading' : title }}
+      {{ title }}
     </h2>
     <div
-      v-if="!isLoading"
+      v-if="tracks.length"
       class="tracks__list"
     >
       <TrackItem

@@ -63,10 +63,10 @@ export default defineComponent({
       calculatedStyles,
       imgContainer,
       isHovering,
-      onMouseOver,
-      onMouseOut,
-      onMouseMove,
       onMouseDown,
+      onMouseMove,
+      onMouseOut,
+      onMouseOver,
       onMouseUp,
     };
   },
@@ -80,7 +80,7 @@ export default defineComponent({
   >
     <div
       ref="imgContainer"
-      :class="{'track-img__container--hovered': isHovering}"
+      :class="{ 'track-img__container--hovered': isHovering }"
       class="track-img__container"
       @mouseover="onMouseOver"
       @mouseout="onMouseOut"
