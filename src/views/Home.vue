@@ -24,7 +24,8 @@ export default defineComponent({
       store.dispatch('recentTracks/fetchList', {
         config: {
           params: {
-            limit: 6,
+            limit: 12,
+            period: '1month',
           },
         },
       });
@@ -35,13 +36,14 @@ export default defineComponent({
         config: {
           params: {
             limit: 12,
-            period: '7day',
+            period: '3month',
           },
         },
       });
     };
 
     const fetchData = () => (Promise.all([fetchRecentTracks(), fetchAlbums()]));
+    document.title = 'Home - Miralize.com';
 
     fetchData();
 

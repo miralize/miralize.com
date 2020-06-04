@@ -24,7 +24,7 @@ export default defineComponent({
   grid-gap: 16px;
   background: var(--bg);
   min-height: calc(100vh);
-  box-shadow: 0 4px 4px rgba(c(blue), 0.4);
+  box-shadow: 0 4px 4px rgba(var(--blue), 0.4);
 }
 .container {
   max-width: 1200px;

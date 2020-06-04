@@ -4,7 +4,7 @@ import TrackItem from '@/components/TrackItem.vue';
 
 export default defineComponent({
   components: {
-    TrackItem,
+    TrackItem, // <track> is reserved
   },
   props: {
     title: {

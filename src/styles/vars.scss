@@ -1,15 +1,6 @@
 $body-padding: 32px;
 $global-font-family: 'Metropolis', 'Helvetica Neue', Arial, sans-serif;
 
-$colors: (
-  bg: #f2f5f7,
-  green: #67e8b4,
-  blue: #86A5DA,
-  purple: #A565ff,
-  text: #4a4d5a,
-  text-light: #757781,
-);
-
 $main-gradient: linear-gradient(
   to right,
   var(--green),
@@ -18,17 +9,16 @@ $main-gradient: linear-gradient(
   var(--green)
 );
 
-@function c($key) {
-  @return map-get($colors, $key);
-}
-
 :root {
+  --bg: #f2f5f7;
+  --green: #67e8b4;
+  --blue: #86A5DA;
+  --purple: #A565ff;
+  --text: #4a4d5a;
+  --text-light: #757781;
 
-  // Register css vars
-	@each $name, $hex in $colors {
-    // Dart-sass error
-    --#{"" + $name}: #{$hex}
-  }
+  ----d-very-fast: 100ms ease-in-out;
+  --d-fast: 200ms ease-in-out;
 }
 
 

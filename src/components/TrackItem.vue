@@ -14,8 +14,8 @@ export default defineComponent({
     const isHovering = ref(false);
     const imgContainer:{ value:HTMLDivElement|null } = ref(null);
     const imgBounds:{ value:ClientRect|null } = ref(null);
-    const rx = ref(0);
-    const ry = ref(0);
+    const rx = ref(3);
+    const ry = ref(2);
     const tz = ref(0);
 
     const onMouseOver = () => {
@@ -74,13 +74,15 @@ export default defineComponent({
 </script>
 
 <template>
-  <div
+  <a
     class="track"
     :style="calculatedStyles"
+    :href="track.url"
+    rel="noopener noreferrer"
+    target="_blank"
   >
     <div
       ref="imgContainer"
-      :class="{ 'track-img__container--hovered': isHovering }"
       class="track-img__container"
       @mouseover="onMouseOver"
       @mouseout="onMouseOut"
@@ -88,6 +90,9 @@ export default defineComponent({
       @mousedown="onMouseDown"
       @mouseup="onMouseUp"
     >
+      <div
+        class="track-img__backdrop"
+      />
       <img
         v-if="track.image[3]['#text']"
         class="track-img"
@@ -111,7 +116,7 @@ export default defineComponent({
         {{ track.playcount }}
       </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <style lang="scss" scoped>
@@ -119,6 +124,12 @@ export default defineComponent({
   transform-style: preserve-3d;
   transform: perspective(800px);
   will-change: transform;
+
+  &:hover {
+    .track__name {
+      color: var(--purple);
+    }
+  }
 }
 
 .track-img__container {
@@ -128,31 +139,29 @@ export default defineComponent({
   --ry-px: calc(var(--ry) * -1px);
   margin-bottom: 16px;
   position: relative;
+  user-select: none;
+}
 
-  img {
-    vertical-align: middle;
-    max-width: 100%;
-    transform: rotateX(var(--rx-deg)) rotateY(var(--ry-deg)) translateZ(var(--tz));
-    transition: transform 0.1s ease;
-    will-change: transform;
-    border-radius: 6px;
-  }
+.track-img__backdrop {
+  border-radius: 6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  transition: transform var(--d-very-fast);
+  transform: scale(0.9) translate3d(var(--ry-px), var(--rx-px), var(calc(--tz + 50px)));
+  background: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.15);
+}
 
-  &::before {
-    border-radius: 6px;
-    content: " ";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    will-change: transform;
-    transition: transform 0.1s ease;
-    transform: scale(0.9) translate3d(var(--ry-px), var(--rx-px), var(--tz));
-    background: rgba(0, 0, 0, 0.15);
-    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.15);
-    z-index: -1;
-  }
+.track-img {
+  width: 100%;
+  transform: rotateX(var(--rx-deg)) rotateY(var(--ry-deg)) translateZ(var(--tz));
+  transition: transform var(--d-very-fast);
+  will-change: transform;
+  border-radius: 6px;
 }
 
 .track__meta {
@@ -165,6 +174,7 @@ export default defineComponent({
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 4px;
+  transition: color var(--d-fast);
 }
 
 .track__artist {

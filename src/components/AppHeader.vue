@@ -36,7 +36,7 @@ export default defineComponent({
   display: grid;
   align-content: center;
   justify-items: center;
-  color: c(blue);
+  color: var(--blue);
   background-blend-mode: overlay;
 }
 
