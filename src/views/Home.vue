@@ -17,25 +17,20 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const recentTracks = computed(() => store.getters['recentTracks/list']);
+    const topAlbums = computed(() => store.getters['topAlbums/list']);
 
-    const recentTracks = computed(() => (
-      store.getters['recentTracks/list']
-    ));
-    const topAlbums = computed(() => (
-      store.getters['topAlbums/list']
-    ));
-
-    const fetchRecentTracks = () => (
+    const fetchRecentTracks = () => {
       store.dispatch('recentTracks/fetchList', {
         config: {
           params: {
             limit: 6,
           },
         },
-      })
-    );
+      });
+    };
 
-    const fetchAlbums = () => (
+    const fetchAlbums = () => {
       store.dispatch('topAlbums/fetchList', {
         config: {
           params: {
@@ -43,10 +38,10 @@ export default defineComponent({
             period: '7day',
           },
         },
-      })
-    );
+      });
+    };
 
-    const fetchData = () => Promise.all([fetchRecentTracks, fetchAlbums]);
+    const fetchData = () => (Promise.all([fetchRecentTracks(), fetchAlbums()]));
 
     fetchData();
 
