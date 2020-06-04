@@ -151,7 +151,7 @@ export default defineComponent({
   height: 100%;
   will-change: transform;
   transition: transform var(--d-very-fast);
-  transform: scale(0.9) translate3d(var(--ry-px), var(--rx-px), var(calc(--tz + 50px)));
+  transform: scale(0.9) translate3d(var(--ry-px), var(--rx-px), calc(var(--tz) + 50px));
   background: rgba(0, 0, 0, 0.15);
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.15);
 }
