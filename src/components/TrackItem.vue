@@ -10,7 +10,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     const isHovering = ref(false);
     const imgContainer:{ value:HTMLDivElement|null } = ref(null);
     const imgBounds:{ value:ClientRect|null } = ref(null);
@@ -59,6 +59,13 @@ export default defineComponent({
       '--tz': `${tz.value}px`,
     }));
 
+    const trackMeta = computed(() => {
+      if (props.track.playcount) {
+        return props.track.playcount;
+      }
+      return null;
+    });
+
     return {
       calculatedStyles,
       imgContainer,
@@ -68,6 +75,7 @@ export default defineComponent({
       onMouseOut,
       onMouseOver,
       onMouseUp,
+      trackMeta,
     };
   },
 });
@@ -105,15 +113,18 @@ export default defineComponent({
         :alt="track.name"
       >
     </div>
-    <div class="track__meta">
+    <div class="track__data">
       <div class="track__name">
         {{ track.name }}
       </div>
       <div class="track__artist">
         {{ track.artist.name }}
       </div>
-      <div class="track__plays">
-        {{ track.playcount }}
+      <div
+        v-if="trackMeta"
+        class="track__meta"
+      >
+        {{ trackMeta }}
       </div>
     </div>
   </a>
@@ -140,6 +151,9 @@ export default defineComponent({
   margin-bottom: 16px;
   position: relative;
   user-select: none;
+  transform: rotateX(var(--rx-deg)) rotateY(var(--ry-deg)) translateZ(var(--tz));
+  transition: transform var(--d-very-fast);
+  will-change: transform;
 }
 
 .track-img__backdrop {
@@ -151,28 +165,27 @@ export default defineComponent({
   height: 100%;
   will-change: transform;
   transition: transform var(--d-very-fast);
-  transform: scale(0.9) translate3d(var(--ry-px), var(--rx-px), calc(var(--tz) + 50px));
+  transform: scale(0.9) translate3d(var(--ry-px), var(--rx-px), var(--tz));
   background: rgba(0, 0, 0, 0.15);
-  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 16px 16px rgba(0, 0, 0, 0.17);
+  z-index: -1;
 }
 
 .track-img {
   width: 100%;
-  transform: rotateX(var(--rx-deg)) rotateY(var(--ry-deg)) translateZ(var(--tz));
-  transition: transform var(--d-very-fast);
-  will-change: transform;
   border-radius: 6px;
 }
 
-.track__meta {
+.track__data {
   display: grid;
-  grid-template-columns: auto minmax(auto, 30px);
+  grid-template-columns: auto min-content;
 }
 
 .track__name {
   grid-column: 1;
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.3;
   margin-bottom: 4px;
   transition: color var(--d-fast);
 }
@@ -184,12 +197,12 @@ export default defineComponent({
   color: var(--text-light);
 }
 
-.track__plays {
+.track__meta {
   grid-row: 1 / span 2;
   grid-column: 2;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
+  font-size: 13px;
 }
 </style>

@@ -1,4 +1,10 @@
-export default [
+interface SocialLinkDefinition {
+  title: string,
+  url: string,
+  icon: string,
+}
+
+export const socialLinks:Array<SocialLinkDefinition> = [
   {
     title: 'Follow me on Twitter',
     url: 'https://twitter.com/miralize',

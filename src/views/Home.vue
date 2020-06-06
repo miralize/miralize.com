@@ -1,6 +1,6 @@
 <script lang="ts">
 /* eslint-disable import/no-dynamic-require, global-require */
-import socialLinks from '@/utils/constants/socialLinks';
+import { socialLinks } from '@/utils/constants/socialLinks';
 import Dribbble from '@/assets/social-icons/dribbble.svg';
 import Github from '@/assets/social-icons/github.svg';
 import Twitter from '@/assets/social-icons/twitter.svg';
@@ -17,14 +17,14 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const recentTracks = computed(() => store.getters['recentTracks/list']);
-    const topAlbums = computed(() => store.getters['topAlbums/list']);
+    const recentTracks = computed(() => store.getters['recentTracks/list'].slice(0, 6));
+    const topAlbums = computed(() => store.getters['topAlbums/list'].slice(0, 12));
 
     const fetchRecentTracks = () => {
       store.dispatch('recentTracks/fetchList', {
         config: {
           params: {
-            limit: 12,
+            limit: 6,
             period: '1month',
           },
         },
@@ -97,10 +97,12 @@ export default defineComponent({
     </section>
     <Tracks
       :tracks="recentTracks"
+      link="https://www.last.fm/user/miralize/library"
       title="Recently played"
     />
     <Tracks
       :tracks="topAlbums"
+      link="https://www.last.fm/user/miralize/library/albums"
       title="Albums I'm listening to"
     />
   </div>

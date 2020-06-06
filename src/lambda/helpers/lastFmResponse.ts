@@ -1,15 +1,27 @@
-const axios = require('axios');
+import { APIGatewayEvent } from 'aws-lambda';
+
+import axios, { AxiosResponse } from 'axios';
+
 require('dotenv').config({ path: './.env.local' });
 
-export default async ({
+export interface LastFmResponse {
+  statusCode: number
+  body: string
+}
+
+export const buildLastFmResponse = async ({
   method,
   event,
   parseResponse = (res) => (res),
-}) => {
+}: {
+  method: string,
+  event: APIGatewayEvent,
+  parseResponse: (a: AxiosResponse) => any,
+}): Promise<LastFmResponse> => {
   try {
     const lastFMUrl = 'http://ws.audioscrobbler.com/2.0/';
 
-    const lastFMApiKey = process.env.LASTFM_API_KEY;
+    const lastFMApiKey:string = process.env.LASTFM_API_KEY;
     if (!lastFMApiKey) {
       throw new Error('There was an error building the request');
     }
@@ -26,7 +38,7 @@ export default async ({
       console.log('params:', params);
     }
 
-    const response = await axios.get(lastFMUrl, { params });
+    const response:AxiosResponse = await axios.get(lastFMUrl, { params });
     const transformedResponse = parseResponse(response);
 
     return {

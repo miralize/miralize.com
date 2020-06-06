@@ -7,6 +7,10 @@ export default defineComponent({
     TrackItem, // <track> is reserved
   },
   props: {
+    link: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -21,9 +25,17 @@ export default defineComponent({
 
 <template>
   <div class="tracks">
-    <h2 class="tracks__title">
-      {{ title }}
-    </h2>
+    <div class="tracks__header">
+      <h2 class="tracks__title">
+        {{ title }}
+      </h2>
+      <a
+        :href="link"
+        class="tracks__link"
+        rel="noopener noreferrer"
+        target="_blank"
+      >View more</a>
+    </div>
     <div
       v-if="tracks.length"
       class="tracks__list"
@@ -46,16 +58,18 @@ export default defineComponent({
   padding: 32px 16px 48px;
 }
 
-.tracks__title {
+.tracks__header {
   width: 100%;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  position: relative;
   margin-bottom: 40px;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.1;
-  font-size: 22px;
+  padding-bottom: 24px;
 
   &::after {
-    margin-top: 16px;
+    position: absolute;
+    bottom: 0;
     display: block;
     content: " ";
     height: 4px;
@@ -63,6 +77,23 @@ export default defineComponent({
     background: $main-gradient;
     background-size: 300% 100%;
   }
+}
+
+.tracks__title {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1;
+  display: inline;
+  font-size: 22px;
+}
+
+.tracks__link {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1;
+  font-size: 22px;
+  font-size: 16px;
+  margin-left: auto;
 }
 
 .tracks__list {
