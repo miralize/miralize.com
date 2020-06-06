@@ -110,28 +110,21 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .intro {
-  grid-column: 1/ -1;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-gap: 16px;
-  grid-row-gap: 16px;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
+  margin-bottom: 40px;
 
   h1 {
-    grid-column: 1 / -1;
     text-align: center;
     font-size: 42px;
     font-weight: 700;
+    margin-bottom: 16px;
   }
 
   p {
-    grid-column: 1 / -1;
     font-size: 16px;
     color: var(--text-light);
     text-align: center;
     line-height: 1.5;
+    margin-bottom: 16px;
   }
 
   @media (min-width: 1200px) {
@@ -147,22 +140,19 @@ export default defineComponent({
 }
 
 .social-links {
-  grid-column: 1 / -1;
-  justify-self: center;
-  display: grid;
   font-size: 15px;
-  justify-content: space-between;
-  grid-template-columns: auto auto auto;
-  grid-gap: 16px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
 }
 
 .social-link {
-    display: flex;
-    align-content: center;
+  margin: 0 8px;
 
-    svg {
-      height: 32px;
-      width: auto;
-    }
+  svg {
+    height: 32px;
+    width: auto;
+  }
 }
 </style>

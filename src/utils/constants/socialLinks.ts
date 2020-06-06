@@ -6,14 +6,14 @@ interface SocialLinkDefinition {
 
 export const socialLinks:Array<SocialLinkDefinition> = [
   {
-    title: 'Follow me on Twitter',
-    url: 'https://twitter.com/miralize',
-    icon: 'Twitter',
-  },
-  {
     title: 'Follow me on Dribbble',
     url: 'https://dribbble.com/miralize',
     icon: 'Dribbble',
+  },
+  {
+    title: 'Follow me on Twitter',
+    url: 'https://twitter.com/miralize',
+    icon: 'Twitter',
   },
   {
     title: 'Find me on Github',

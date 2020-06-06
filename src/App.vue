@@ -30,8 +30,5 @@ export default defineComponent({
   max-width: 1200px;
   margin: 0 auto;
   width: calc(100% - 16px);
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-gap: 16px;
 }
 </style>

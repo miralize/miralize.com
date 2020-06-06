@@ -23,19 +23,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .app-header {
-  display: grid;
-  grid-template: 100px auto / repeat(12, 1fr);
+  display: flex;
   align-content: center;
-  align-items: center;
   justify-content: center;
-  justify-items: center;
 }
 
 .app-logo {
-  grid-column: 1 / -1;
-  display: grid;
-  align-content: center;
-  justify-items: center;
+  margin: 60px 0;
   color: var(--blue);
   background-blend-mode: overlay;
 }
