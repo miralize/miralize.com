@@ -15,6 +15,7 @@ export default defineComponent({
       class="app-logo"
       to="/"
       exact
+      title="Home"
     >
       <Logo />
     </router-link>
