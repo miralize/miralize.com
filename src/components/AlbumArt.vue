@@ -16,8 +16,8 @@ export default defineComponent({
     const isHovering = ref(false);
     const imgContainer:{ value:HTMLDivElement|null } = ref(null);
     const imgBounds:{ value:ClientRect|null } = ref(null);
-    const rx = ref(3);
-    const ry = ref(2);
+    const rx = ref(0);
+    const ry = ref(0);
     const tz = ref(0);
 
     const onMouseOver = () => {
