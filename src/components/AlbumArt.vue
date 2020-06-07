@@ -1,16 +1,18 @@
 <script lang="ts">
-import {
-  defineComponent, ref, computed,
-} from 'vue';
+import { defineComponent, computed, ref } from 'vue';
 
 export default defineComponent({
   props: {
-    track: {
-      type: Object,
-      required: true,
+    src: {
+      type: String,
+      default: '@/assets/default-album-cover.png',
+    },
+    alt: {
+      type: String,
+      default: '',
     },
   },
-  setup(props) {
+  setup() {
     const isHovering = ref(false);
     const imgContainer:{ value:HTMLDivElement|null } = ref(null);
     const imgBounds:{ value:ClientRect|null } = ref(null);
@@ -59,13 +61,6 @@ export default defineComponent({
       '--tz': `${tz.value}px`,
     }));
 
-    const trackMeta = computed(() => {
-      if (props.track.playcount) {
-        return props.track.playcount;
-      }
-      return null;
-    });
-
     return {
       calculatedStyles,
       imgContainer,
@@ -75,75 +70,34 @@ export default defineComponent({
       onMouseOut,
       onMouseOver,
       onMouseUp,
-      trackMeta,
     };
   },
 });
 </script>
 
 <template>
-  <a
-    class="track"
+  <div
+    ref="imgContainer"
+    class="album-art"
     :style="calculatedStyles"
-    :href="track.url"
-    rel="noopener noreferrer"
-    target="_blank"
+    @mouseover="onMouseOver"
+    @mouseout="onMouseOut"
+    @mousemove="onMouseMove"
+    @mousedown="onMouseDown"
+    @mouseup="onMouseUp"
   >
-    <div
-      ref="imgContainer"
-      class="track-img__container"
-      @mouseover="onMouseOver"
-      @mouseout="onMouseOut"
-      @mousemove="onMouseMove"
-      @mousedown="onMouseDown"
-      @mouseup="onMouseUp"
+    <div class="album-art__backdrop" />
+    <img
+      class="album-art__img"
+      :src="src"
+      :alt="alt"
     >
-      <div
-        class="track-img__backdrop"
-      />
-      <img
-        v-if="track.image[3]['#text']"
-        class="track-img"
-        :src="track.image[3]['#text']"
-        :alt="track.name"
-      >
-      <img
-        v-else
-        src="@/assets/default-album-cover.png"
-        :alt="track.name"
-      >
-    </div>
-    <div class="track__data">
-      <div class="track__name">
-        {{ track.name }}
-      </div>
-      <div class="track__artist">
-        {{ track.artist.name }}
-      </div>
-      <div
-        v-if="trackMeta"
-        class="track__meta"
-      >
-        {{ trackMeta }}
-      </div>
-    </div>
-  </a>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.track {
-  transform-style: preserve-3d;
-  transform: perspective(800px);
-  will-change: transform;
 
-  &:hover {
-    .track__name {
-      color: var(--purple);
-    }
-  }
-}
-
-.track-img__container {
+.album-art {
   --rx-deg: calc(var(--rx) * 1deg);
   --ry-deg: calc(var(--ry) * 1deg);
   --rx-px: calc(var(--rx) * 1px);
@@ -156,7 +110,7 @@ export default defineComponent({
   will-change: transform;
 }
 
-.track-img__backdrop {
+.album-art__backdrop {
   border-radius: 6px;
   position: absolute;
   top: 0;
@@ -171,38 +125,8 @@ export default defineComponent({
   z-index: -1;
 }
 
-.track-img {
+.album-art__img {
   width: 100%;
   border-radius: 6px;
-}
-
-.track__data {
-  display: grid;
-  grid-template-columns: auto min-content;
-}
-
-.track__name {
-  grid-column: 1;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.3;
-  margin-bottom: 4px;
-  transition: color var(--d-fast);
-}
-
-.track__artist {
-  grid-column: 1;
-  font-weight: 400;
-  font-size: 13px;
-  color: var(--text-light);
-}
-
-.track__meta {
-  grid-row: 1 / span 2;
-  grid-column: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 13px;
 }
 </style>

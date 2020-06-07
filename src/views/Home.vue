@@ -5,7 +5,7 @@ import Dribbble from '@/assets/social-icons/dribbble.svg';
 import Github from '@/assets/social-icons/github.svg';
 import Twitter from '@/assets/social-icons/twitter.svg';
 import { defineComponent, computed } from 'vue';
-import Tracks from '@/components/Tracks.vue';
+import AlbumList from '@/components/AlbumList.vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
@@ -13,7 +13,7 @@ export default defineComponent({
     Dribbble,
     Github,
     Twitter,
-    Tracks,
+    AlbumList,
   },
   setup() {
     const store = useStore();
@@ -78,7 +78,7 @@ export default defineComponent({
         If you'd like to get in touch, please reach out to me using the links below.
       </p>
 
-      <nav class="social-links">
+      <nav class="my-links">
         <a
           v-for="link in socialLinks"
           :key="link.title"
@@ -86,7 +86,7 @@ export default defineComponent({
           :href="link.url"
           target="_blank"
           rel="noopener noreferrer"
-          class="social-link"
+          class="my-link"
         >
           <component
             :is="link.icon"
@@ -95,13 +95,13 @@ export default defineComponent({
         </a>
       </nav>
     </section>
-    <Tracks
-      :tracks="recentTracks"
+    <AlbumList
+      :albums="recentTracks"
       link="https://www.last.fm/user/miralize/library"
-      title="Recently played"
+      title="Recently played songs"
     />
-    <Tracks
-      :tracks="topAlbums"
+    <AlbumList
+      :albums="topAlbums"
       link="https://www.last.fm/user/miralize/library/albums"
       title="Albums I'm listening to"
     />
@@ -139,7 +139,7 @@ export default defineComponent({
   }
 }
 
-.social-links {
+.my-links {
   font-size: 15px;
   display: flex;
   align-items: center;
@@ -147,7 +147,7 @@ export default defineComponent({
   justify-content: center;
 }
 
-.social-link {
+.my-link {
   margin: 0 8px;
 
   svg {
