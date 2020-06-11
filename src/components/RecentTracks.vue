@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, watchEffect } from 'vue';
+import { defineComponent } from 'vue';
 import RecentTrack from '@/components/RecentTrack.vue';
 
 export default defineComponent({
@@ -11,11 +11,6 @@ export default defineComponent({
       type: Array,
       required: true,
     },
-  },
-  setup(props) {
-    watchEffect(() => {
-      console.log(props.tracks);
-    });
   },
 });
 </script>
