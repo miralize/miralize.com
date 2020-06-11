@@ -82,6 +82,10 @@ export default defineComponent({
   transition: color var(--d-fast);
 }
 
+.album-art {
+  margin-bottom: 16px;
+}
+
 .album__artist {
   grid-column: 1;
   font-weight: 400;

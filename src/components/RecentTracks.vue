@@ -1,29 +1,34 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
-import Album from '@/components/Album.vue';
+import { defineComponent, watchEffect } from 'vue';
+import RecentTrack from '@/components/RecentTrack.vue';
 
 export default defineComponent({
   components: {
-    Album, // <track> is reserved
+    RecentTrack,
   },
   props: {
-    albums: {
+    tracks: {
       type: Array,
       required: true,
     },
+  },
+  setup(props) {
+    watchEffect(() => {
+      console.log(props.tracks);
+    });
   },
 });
 </script>
 
 <template>
-  <div class="albums">
-    <div class="albums__header">
-      <h2 class="albums__title">
-        Albums I'm listening to
+  <div class="tracks">
+    <div class="tracks__header">
+      <h2 class="tracks__title">
+        Recent tracks
       </h2>
       <a
-        href="https://www.last.fm/user/miralize/library/albums"
-        class="albums__link"
+        href="https://www.last.fm/user/miralize/library"
+        class="tracks__link"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -31,28 +36,27 @@ export default defineComponent({
       </a>
     </div>
     <div
-      v-if="albums.length"
-      class="albums__list"
+      v-if="tracks.length"
+      class="tracks__list"
     >
-      <Album
-        v-for="album in albums"
-        :key="album.id"
-        :album="album"
+      <RecentTrack
+        v-for="track in tracks"
+        :key="track.id"
+        :track="track"
       />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.albums {
+.tracks {
   width: 100%;
   display: flex;
   flex-direction: column;
-  grid-column: 1 / -1;
   padding: 32px 16px 48px;
 }
 
-.albums__header {
+.tracks__header {
   width: 100%;
   display: flex;
   align-content: center;
@@ -73,7 +77,7 @@ export default defineComponent({
   }
 }
 
-.albums__title {
+.tracks__title {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.1;
@@ -81,7 +85,7 @@ export default defineComponent({
   font-size: 16px;
 }
 
-.albums__link {
+.tracks__link {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.1;
@@ -89,10 +93,4 @@ export default defineComponent({
   margin-left: auto;
 }
 
-.albums__list {
-  grid-column: 1/-1;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, auto));
-  grid-gap: 30px;
-}
 </style>

@@ -6,26 +6,31 @@ import Github from '@/assets/social-icons/github.svg';
 import Twitter from '@/assets/social-icons/twitter.svg';
 import { defineComponent, computed } from 'vue';
 import AlbumList from '@/components/AlbumList.vue';
+import RecentTracks from '@/components/RecentTracks.vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
   components: {
+    AlbumList,
     Dribbble,
     Github,
+    RecentTracks,
     Twitter,
-    AlbumList,
   },
   setup() {
+    const trackCount = 9;
+    const albumCount = 8;
     const store = useStore();
-    const recentTracks = computed(() => store.getters['recentTracks/list'].slice(0, 6));
-    const topAlbums = computed(() => store.getters['topAlbums/list'].slice(0, 12));
+    const recentTracks = computed(() => store.getters['recentTracks/list'].slice(0, trackCount));
+    const topAlbums = computed(() => store.getters['topAlbums/list'].slice(0, albumCount));
 
     const fetchRecentTracks = () => {
       store.dispatch('recentTracks/fetchList', {
         config: {
           params: {
-            limit: 6,
+            limit: trackCount,
             period: '1month',
+            extended: 1,
           },
         },
       });
@@ -35,7 +40,7 @@ export default defineComponent({
       store.dispatch('topAlbums/fetchList', {
         config: {
           params: {
-            limit: 12,
+            limit: albumCount,
             period: '3month',
           },
         },
@@ -95,16 +100,10 @@ export default defineComponent({
         </a>
       </nav>
     </section>
-    <AlbumList
-      :albums="recentTracks"
-      link="https://www.last.fm/user/miralize/library"
-      title="Recently played songs"
-    />
-    <AlbumList
-      :albums="topAlbums"
-      link="https://www.last.fm/user/miralize/library/albums"
-      title="Albums I'm listening to"
-    />
+    <div class="lastfm-info">
+      <RecentTracks :tracks="recentTracks" />
+      <AlbumList :albums="topAlbums" />
+    </div>
   </div>
 </template>
 
@@ -153,6 +152,18 @@ export default defineComponent({
   svg {
     height: 32px;
     width: auto;
+  }
+}
+
+.lastfm-info {
+  display: flex;
+
+  .tracks {
+    flex: 1;
+  }
+
+  .albums {
+    flex: 2;
   }
 }
 </style>

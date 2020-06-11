@@ -3,6 +3,10 @@ import { defineComponent, computed, ref } from 'vue';
 
 export default defineComponent({
   props: {
+    borderRadius: {
+      type: String,
+      default: '6px',
+    },
     src: {
       type: String,
       default: '@/assets/default-album-cover.png',
@@ -12,7 +16,7 @@ export default defineComponent({
       default: '',
     },
   },
-  setup() {
+  setup(props) {
     const isHovering = ref(false);
     const imgContainer:{ value:HTMLDivElement|null } = ref(null);
     const imgBounds:{ value:ClientRect|null } = ref(null);
@@ -56,6 +60,7 @@ export default defineComponent({
     };
 
     const calculatedStyles = computed(() => ({
+      '--album-border-radius': `${props.borderRadius}`,
       '--rx': `${rx.value}`,
       '--ry': `${ry.value}`,
       '--tz': `${tz.value}px`,
@@ -102,7 +107,6 @@ export default defineComponent({
   --ry-deg: calc(var(--ry) * 1deg);
   --rx-px: calc(var(--rx) * 1px);
   --ry-px: calc(var(--ry) * -1px);
-  margin-bottom: 16px;
   position: relative;
   user-select: none;
   transform: rotateX(var(--rx-deg)) rotateY(var(--ry-deg)) translateZ(var(--tz));
@@ -111,7 +115,7 @@ export default defineComponent({
 }
 
 .album-art__backdrop {
-  border-radius: 6px;
+  border-radius: var(--album-border-radius);
   position: absolute;
   top: 0;
   left: 0;
@@ -127,6 +131,6 @@ export default defineComponent({
 
 .album-art__img {
   width: 100%;
-  border-radius: 6px;
+  border-radius: var(--album-border-radius);
 }
 </style>

@@ -14,6 +14,7 @@ export default defineComponent({
 <template>
   <AppHeader />
   <RouterView class="container" />
+  <footer class="app-footer" />
 </template>
 
 <style lang="scss" src="@/styles/root.scss"></style>
@@ -30,5 +31,9 @@ export default defineComponent({
   max-width: 1200px;
   margin: 0 auto;
   width: calc(100% - 16px);
+}
+
+.app-footer {
+  margin: 40px 0;
 }
 </style>
