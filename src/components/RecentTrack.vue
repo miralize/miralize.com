@@ -90,10 +90,8 @@ export default defineComponent({
   flex: 0 0 30px;
   margin-right: 16px;
 
-  &::v-deep {
-    .album-art__backdrop {
-      box-shadow: 0 0 16px 8px rgba(0, 0, 0, 0.17);
-    }
+  &::v-deep(.album-art__backdrop) {
+    display: none;
   }
 }
 </style>
