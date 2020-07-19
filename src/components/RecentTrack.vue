@@ -29,7 +29,11 @@ export default defineComponent({
       const date = fromUnixTime(props.track.date.uts);
       return formatDistance(date, Date.now(), { addSuffix: true });
     });
-    return { imageToUse, formattedDate, isUsingAlbumImage };
+    return {
+      imageToUse,
+      formattedDate,
+      isUsingAlbumImage,
+    };
   },
 });
 </script>

@@ -12,8 +12,6 @@ module.exports = {
   },
   root: true,
   rules: {
-    'import/no-unresolved': 0,
-    'import/prefer-default-export': 0,
     'lines-between-class-members': ['error'],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -58,7 +56,7 @@ module.exports = {
     'vue/static-class-names-order': ['error'],
     'vue/template-curly-spacing': ['error'],
     'vue/v-on-function-call': ['error'],
-    // 'vue/no-unregistered-components': ['error'],
+    'vue/no-unregistered-components': ['error'],
     // 'vue/require-direct-export': ['error'],
     // 'vue/require-name-property': ['error'],
     // 'vue/sort-keys': ['error'],

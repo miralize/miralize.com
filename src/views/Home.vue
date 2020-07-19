@@ -5,9 +5,9 @@ import Dribbble from '@/assets/social-icons/dribbble.svg';
 import Github from '@/assets/social-icons/github.svg';
 import Twitter from '@/assets/social-icons/twitter.svg';
 import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
 import AlbumList from '@/components/AlbumList.vue';
 import RecentTracks from '@/components/RecentTracks.vue';
-import { useStore } from 'vuex';
 
 export default defineComponent({
   components: {
@@ -71,13 +71,10 @@ export default defineComponent({
           href="https://teamwork.com"
           target="_blank"
           rel="noopener noreferrer"
-          v-text="'Teamwork'"
-        />, working on our <a
-          href="https://teamwork.com/crm"
-          target="_blank"
-          rel="noopener noreferrer"
-          v-text="'CRM product'"
-        /> in Cork!.
+        >
+          Teamwork
+        </a>
+        in Cork, Ireland.
       </p>
       <p>
         If you'd like to get in touch, please reach out to me using the links below.

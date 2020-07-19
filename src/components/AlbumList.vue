@@ -4,7 +4,7 @@ import Album from '@/components/Album.vue';
 
 export default defineComponent({
   components: {
-    Album, // <track> is reserved
+    Album,
   },
   props: {
     albums: {
