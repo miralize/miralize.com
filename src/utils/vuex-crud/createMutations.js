@@ -150,7 +150,6 @@ const createMutations = ({
 
         state.entities[id] = data;
 
-
         const listIndex = state.list.indexOf(id);
         if (listIndex >= 0) {
           state.list[listIndex] = id;

@@ -1,6 +1,4 @@
-import {
-  APIGatewayEvent,
-} from 'aws-lambda';
+import { APIGatewayEvent } from 'aws-lambda';
 import { AxiosResponse } from 'axios';
 import { buildLastFmResponse, LastFmResponse } from './helpers/lastFmResponse';
 

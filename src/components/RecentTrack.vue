@@ -19,7 +19,7 @@ export default defineComponent({
       return props.track.artist.image[0]['#text'].includes(defaultImageId);
     });
     const imageToUse = computed(() => {
-      if (isUsingAlbumImage) {
+      if (isUsingAlbumImage.value) {
         return props.track.image[3];
       }
       return props.track.artist.image[3];

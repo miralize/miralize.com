@@ -46,6 +46,7 @@ export const buildLastFmResponse = async ({
       body: JSON.stringify(transformedResponse.data),
     };
   } catch (err) {
+    console.log('err:', err);
     return {
       statusCode: err?.response?.status ?? 500,
       body: JSON.stringify(err?.response?.data ?? {}),
