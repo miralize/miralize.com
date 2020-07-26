@@ -1,13 +1,13 @@
 <script lang="ts">
 /* eslint-disable import/no-dynamic-require, global-require */
-import { socialLinks } from '@/utils/constants/socialLinks';
-import Dribbble from '@/assets/social-icons/dribbble.svg';
-import Github from '@/assets/social-icons/github.svg';
-import Twitter from '@/assets/social-icons/twitter.svg';
+import { socialLinks } from '/@/utils/constants/socialLinks';
+import { VueComponent as Dribbble } from '/@/assets/social-icons/dribbble.svg';
+import { VueComponent as Github } from '/@/assets/social-icons/github.svg';
+import { VueComponent as Twitter } from '/@/assets/social-icons/twitter.svg';
 import { defineComponent, computed } from 'vue';
 import { useStore } from 'vuex';
-import AlbumList from '@/components/AlbumList.vue';
-import RecentTracks from '@/components/RecentTracks.vue';
+import AlbumList from '/@/components/AlbumList.vue';
+import RecentTracks from '/@/components/RecentTracks.vue';
 
 export default defineComponent({
   components: {
@@ -105,6 +105,8 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
+@import '../styles/vars.scss';
+
 .intro {
   margin-bottom: 40px;
 

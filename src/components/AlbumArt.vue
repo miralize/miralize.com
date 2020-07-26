@@ -9,7 +9,7 @@ export default defineComponent({
     },
     src: {
       type: String,
-      default: '@/assets/default-album-cover.png',
+      default: '/@/assets/default-album-cover.png',
     },
     alt: {
       type: String,
@@ -101,6 +101,7 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
+@import '../styles/vars.scss';
 
 .album-art {
   --rx-deg: calc(var(--rx) * 1deg);

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import AlbumArt from '@/components/AlbumArt.vue';
+import AlbumArt from '/@/components/AlbumArt.vue';
 
 export default defineComponent({
   components: {
@@ -56,6 +56,8 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
+@import '../styles/vars.scss';
+
 .album {
   transform-style: preserve-3d;
   transform: perspective(800px);

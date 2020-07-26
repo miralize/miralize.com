@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Logo from '@/assets/logo.svg';
+import { VueComponent as Logo } from '/@/assets/logo.svg';
 
 export default defineComponent({
   components: {
@@ -23,6 +23,8 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
+@import '../styles/vars.scss';
+
 .app-header {
   display: flex;
   align-content: center;

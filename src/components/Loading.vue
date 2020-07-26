@@ -19,6 +19,8 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
+@import '../styles/vars.scss';
+
 .loading-indicator {
   position: fixed;
   top: 0;

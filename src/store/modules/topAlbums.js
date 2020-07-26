@@ -1,4 +1,4 @@
-import { createCrudModule } from '@/utils/vuex-crud';
+import { createCrudModule } from '/@/utils/vuex-crud';
 
 export default createCrudModule({
   resource: 'topAlbums',
