@@ -2,3 +2,9 @@
   command = "npm run build"
   functions = "lambda"
   publish = "dist"
+[dev]
+  command = "npm run dev"
+  framework = "#custom"
+  functions = "lambda"
+  port = 4040
+  targetPort = 8080

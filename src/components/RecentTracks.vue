@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import RecentTrack from '@/components/RecentTrack.vue';
+import RecentTrack from '/@/components/RecentTrack.vue';
 
 export default defineComponent({
   components: {
@@ -44,6 +44,8 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
+@import '../styles/vars.scss';
+
 .tracks {
   width: 100%;
   display: flex;

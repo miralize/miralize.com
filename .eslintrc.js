@@ -4,8 +4,8 @@ module.exports = {
   },
   extends: [
     'plugin:vue/vue3-recommended',
-    '@vue/airbnb',
-    '@vue/typescript',
+    'plugin:airbnb-base',
+    'plugin:typescript',
   ],
   parserOptions: {
     parser: '@typescript-eslint/parser',
@@ -16,6 +16,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'import/prefer-default-export': 0,
+    'import/no-absolute-paths': 0,
     'vue/array-bracket-spacing': 2,
     'vue/arrow-spacing': 2,
     'vue/block-spacing': 2,

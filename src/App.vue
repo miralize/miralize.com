@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { RouterView } from 'vue-router';
-import AppHeader from '@/components/AppHeader.vue';
+import AppHeader from '/@/components/AppHeader.vue';
 
 export default defineComponent({
   components: {
@@ -17,9 +17,11 @@ export default defineComponent({
   <footer class="app-footer" />
 </template>
 
-<style lang="scss" src="@/styles/root.scss"></style>
+<style lang="scss" src="/@/styles/root.scss"></style>
 
 <style lang="scss" scoped>
+@import './styles/vars.scss';
+
 .app {
   display: grid;
   grid-gap: 16px;

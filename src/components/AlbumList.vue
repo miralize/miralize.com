@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Album from '@/components/Album.vue';
+import Album from '/@/components/Album.vue';
 
 export default defineComponent({
   components: {
@@ -44,6 +44,8 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
+@import '../styles/vars.scss';
+
 .albums {
   width: 100%;
   display: flex;

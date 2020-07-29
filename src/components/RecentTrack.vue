@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import { fromUnixTime, formatDistance } from 'date-fns';
-import AlbumArt from '@/components/AlbumArt.vue';
+import AlbumArt from '/@/components/AlbumArt.vue';
 
 export default defineComponent({
   components: {
@@ -39,7 +39,12 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="track">
+  <a
+    class="track"
+    :href="track.url"
+    target="_blank"
+    rel="noopener"
+  >
     <AlbumArt
       :src="imageToUse['#text']"
       :alt="imageToUse.name"
@@ -56,10 +61,12 @@ export default defineComponent({
     <div class="track__date">
       {{ formattedDate }}
     </div>
-  </div>
+  </a>
 </template>
 
 <style lang="scss" scoped>
+@import '../styles/vars.scss';
+
 .track {
   display: flex;
   align-content: center;

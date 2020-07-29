@@ -1,5 +1,18 @@
+const path = require('path');
+
 module.exports = {
   presets: [
-    '@vue/app',
+    "@babel/env",
+    "@babel/preset-typescript",
   ],
-};
+  plugins: [
+    [
+      "module-resolver", {
+        "alias": {
+          '/@/': './src/',
+        },
+        "extensions": [".js", ".vue", ".ts"]
+      }
+    ]
+  ]
+}
