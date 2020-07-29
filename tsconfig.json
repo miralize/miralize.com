@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
     "strict": false,
     "jsx": "preserve",
     "importHelpers": true,
@@ -18,7 +18,8 @@
       ],
     },
     "types": [
-      "jest"
+      "jest",
+      "node"
     ],
     "lib": [
       "esnext",
@@ -29,11 +30,8 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.svg",
-    "src/**/*.tsx",
     "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.ts"
   ],
   "exclude": [
     "node_modules"
