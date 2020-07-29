@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "vite --port 8080",
-    "build": "vite build",
+    "build": "npm run build:assets && npm run build:fns",
+    "build:assets": "vite build",
+    "build:fns": "netlify-lambda build src/lambda",
     "lint": "tsc --noEmit && eslint --fix",
     "test": "jest",
     "test:watch": "jest --watchAll"
