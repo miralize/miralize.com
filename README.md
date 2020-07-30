@@ -32,9 +32,3 @@ npm run test
 ```js
 npm run lint
 ```
-
-### Run your unit tests
-
-```js
-npm run test
-```
