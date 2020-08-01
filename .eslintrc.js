@@ -1,11 +1,20 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path');
+
+console.log(path.resolve(__dirname, './src/'));
+
 module.exports = {
   env: {
     node: true,
   },
+  parser: 'vue-eslint-parser',
+  plugins: [
+    '@typescript-eslint',
+  ],
   extends: [
     'plugin:vue/vue3-recommended',
-    'plugin:airbnb-base',
-    'plugin:typescript',
+    'airbnb-base',
+    'plugin:@typescript-eslint/recommended',
   ],
   parserOptions: {
     parser: '@typescript-eslint/parser',
@@ -16,7 +25,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'import/prefer-default-export': 0,
-    'import/no-absolute-paths': 0,
+    'import/no-absolute-path': 0,
     'vue/array-bracket-spacing': 2,
     'vue/arrow-spacing': 2,
     'vue/block-spacing': 2,
@@ -65,5 +74,14 @@ module.exports = {
     // 'vue/require-name-property': 2,
     // 'vue/sort-keys': 2,
   },
-
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['/@', path.resolve(__dirname, './src')],
+        ],
+        extensions: ['.ts', '.js', '.vue', '.svg', '.scss'],
+      },
+    },
+  },
 };

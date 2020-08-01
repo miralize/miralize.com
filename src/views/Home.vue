@@ -1,11 +1,10 @@
 <script lang="ts">
-/* eslint-disable import/no-dynamic-require, global-require */
-import { socialLinks } from '/@/utils/constants/socialLinks';
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
+import { socialLinks } from '/@/utils/constants/socialLinks.ts';
 import { VueComponent as Dribbble } from '/@/assets/social-icons/dribbble.svg';
 import { VueComponent as Github } from '/@/assets/social-icons/github.svg';
 import { VueComponent as Twitter } from '/@/assets/social-icons/twitter.svg';
-import { defineComponent, computed } from 'vue';
-import { useStore } from 'vuex';
 import AlbumList from '/@/components/AlbumList.vue';
 import RecentTracks from '/@/components/RecentTracks.vue';
 
