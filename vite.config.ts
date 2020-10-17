@@ -1,15 +1,15 @@
 import type { UserConfig } from 'vite';
-const svgPlugin = require('vite-plugin-svg');
-
-const path = require('path');
+import svgPlugin from 'vite-plugin-svg';
+import path from 'path';
 
 const config: UserConfig = {
+  https: true,
   alias: {
     '/@/': path.resolve(__dirname, 'src'),
   },
   plugins: [
-    svgPlugin()
-  ]
+    svgPlugin(),
+  ],
 };
 
 export default config;
