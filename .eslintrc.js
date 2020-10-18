@@ -70,7 +70,7 @@ module.exports = {
     'vue/no-unregistered-components': [2, {
       ignorePatterns: ['router-link'],
     }],
-    'import/no-extraneous-dependencies': ['error', { devDependencies: ['**/*.test.js', '**/*.spec.js', 'vite.config.ts'] }],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: ['*.js', '**/*.test.js', '**/*.spec.js', 'vite.config.ts'] }],
 
     // 'vue/require-direct-export': 2,
     // 'vue/require-name-property': 2,
