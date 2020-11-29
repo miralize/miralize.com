@@ -19,7 +19,7 @@ export default defineComponent({
   setup(props) {
     const isHovering = ref(false);
     const imgContainer:{ value:HTMLDivElement|null } = ref(null);
-    const imgBounds:{ value:ClientRect|null } = ref(null);
+    const imgBounds:{ value:DOMRect|null } = ref(null);
     const rx = ref(0);
     const ry = ref(0);
     const tz = ref(0);
@@ -55,6 +55,7 @@ export default defineComponent({
     const onMouseDown = () => {
       tz.value = -25;
     };
+
     const onMouseUp = () => {
       tz.value = 0;
     };

@@ -43,7 +43,7 @@ export default defineComponent({
     class="track"
     :href="track.url"
     target="_blank"
-    rel="noopener"
+    rel="noopener noreferrer"
   >
     <AlbumArt
       :src="imageToUse['#text']"
